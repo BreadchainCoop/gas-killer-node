@@ -3,6 +3,7 @@
 //! # Usage (3 of 4 Threshold)
 mod bindings;
 mod handlers;
+mod simulator;
 
 use ark_bn254::Fr;
 use bn254::{Bn254, PrivateKey};
