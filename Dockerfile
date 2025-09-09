@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
     libssl3 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/src/app/target/release/commonware-avs-node /usr/local/bin/commonware-avs-node
+COPY --from=builder /usr/src/app/target/release/gas-killer-node /usr/local/bin/gas-killer-node
 COPY orchestrator.json /etc/avs-node/orchestrator.json
 
-ENTRYPOINT ["/usr/local/bin/commonware-avs-node"]
+ENTRYPOINT ["/usr/local/bin/gas-killer-node"]

@@ -1,7 +1,7 @@
 
-# Commonware AVS Node
+# Gas Killer Node
 
-Please see [the following repo](https://github.com/BreadchainCoop/commonware-avs-router.git) for context on how to use this repo. 
+Please see [the following repo](https://github.com/BreadchainCoop/gas-killer-router.git) for context on how to use this repo. 
 
 ## Quickstart
 ```sh
@@ -16,10 +16,10 @@ Docker images are automatically built and published to GitHub Container Registry
 
 ```bash
 # Pull the latest release
-docker pull ghcr.io/breadchaincoop/commonware-avs-node:latest
+docker pull ghcr.io/breadchaincoop/gas-killer-node:latest
 
 # Pull a specific version  
-docker pull ghcr.io/breadchaincoop/commonware-avs-node:v1.2.3
+docker pull ghcr.io/breadchaincoop/gas-killer-node:v1.2.3
 ```
 
 Multi-architecture images are available for both `linux/amd64` and `linux/arm64`.

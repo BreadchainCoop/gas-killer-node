@@ -1,12 +1,12 @@
 [workspace]
 
 [package]
-name = "commonware-avs-node"
+name = "gas-killer-node"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-commonware-avs-router = { git = "https://github.com/BreadchainCoop/commonware-avs-router", branch = "main" }
+gas-killer-router = { git = "https://github.com/BreadchainCoop/gas-killer-router", branch = "main" }
 
 alloy = { version = "0.12.6" }
 alloy-network = "0.5.4"
