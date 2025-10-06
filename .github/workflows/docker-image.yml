@@ -55,7 +55,7 @@ jobs:
             GIT_TERMINAL_PROMPT=0
             GIT_ASKPASS=/bin/echo
           secrets: |
-            id=GH_PAT,env=GH_PAT
+            id=GIT_AUTH_TOKEN,env=GH_PAT
 
   manifest:
     needs: docker
