@@ -9,27 +9,21 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/src/app
 
-RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "ssh://git@github.com/" && \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "git@github.com:"
-
-ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
-
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "ssh://git@github.com/" && \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "git@github.com:" && \
-    cargo build --release && \
-    rm -rf src
+    if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
+        TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "https://github.com/"; \
+    else \
+        echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN" && exit 1; \
+    fi
+
+RUN cargo build --release && rm -rf src
 
 COPY src ./src
-
-RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "ssh://git@github.com/" && \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "git@github.com:" && \
-    cargo build --release
+RUN cargo build --release
 
 # Runtime stage
 FROM debian:bookworm-slim
