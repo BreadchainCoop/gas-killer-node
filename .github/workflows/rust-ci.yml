@@ -2,15 +2,7 @@ name: Rust CI
 
 on:
   push:
-    branches:
-      - main
-      - dev
-      - release
   pull_request:
-    branches:
-      - main
-      - dev
-      - release
 
 jobs:
   check:
