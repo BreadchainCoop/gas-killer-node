@@ -9,25 +9,18 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/src/app
 
-ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
-
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    echo "DEBUG: Checking for secret..." && \
-    ls -la /run/secrets/ && \
     if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
-        echo "DEBUG: Secret file exists" && \
         TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
-        echo "DEBUG: Token length: ${#TOKEN}" && \
-        git config --global url."https://${TOKEN}@github.com/".insteadOf "ssh://git@github.com/" && \
-        git config --global url."https://${TOKEN}@github.com/".insteadOf "git@github.com:"; \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "https://github.com/"; \
     else \
-        echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN"; \
-    fi && \
-    cargo build --release && \
-    rm -rf src
+        echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN" && exit 1; \
+    fi
+
+RUN cargo build --release && rm -rf src
 
 COPY src ./src
 RUN cargo build --release
