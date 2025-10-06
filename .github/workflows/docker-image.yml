@@ -54,7 +54,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Build and push (per-arch)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/${{ matrix.arch }}
@@ -67,7 +67,7 @@ jobs:
             GIT_TERMINAL_PROMPT=0
             GIT_ASKPASS=/bin/echo
           secrets: |
-            id=GIT_AUTH_TOKEN,env=GH_PAT
+            GIT_AUTH_TOKEN=${{ secrets.GH_PAT }}
 
   manifest:
     needs: docker
