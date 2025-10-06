@@ -9,26 +9,34 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/src/app
 
-RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "ssh://git@github.com/" && \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "git@github.com:"
-
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "ssh://git@github.com/" && \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "git@github.com:" && \
+    echo "DEBUG: Checking for secret..." && \
+    ls -la /run/secrets/ && \
+    if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
+        echo "DEBUG: Secret file exists" && \
+        TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
+        echo "DEBUG: Token length: ${#TOKEN}" && \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "ssh://git@github.com/" && \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "git@github.com:"; \
+    else \
+        echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN"; \
+    fi && \
     cargo build --release && \
     rm -rf src
 
 COPY src ./src
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "ssh://git@github.com/" && \
-    git config --global url."https://$(cat /run/secrets/GIT_AUTH_TOKEN)@github.com/".insteadOf "git@github.com:" && \
+    if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
+        TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "ssh://git@github.com/" && \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "git@github.com:"; \
+    fi && \
     cargo build --release
 
 # Runtime stage
