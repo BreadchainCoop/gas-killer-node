@@ -30,14 +30,7 @@ RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
     rm -rf src
 
 COPY src ./src
-
-RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
-    if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
-        TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
-        git config --global url."https://${TOKEN}@github.com/".insteadOf "ssh://git@github.com/" && \
-        git config --global url."https://${TOKEN}@github.com/".insteadOf "git@github.com:"; \
-    fi && \
-    cargo build --release
+RUN cargo build --release
 
 # Runtime stage
 FROM debian:bookworm-slim
