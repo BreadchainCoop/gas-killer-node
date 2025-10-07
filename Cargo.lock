@@ -4727,7 +4727,7 @@ dependencies = [
 [[package]]
 name = "gas-killer-router"
 version = "0.1.0"
-source = "git+ssh://git@github.com/BreadchainCoop/gas-killer-router.git#018b332f7ad1cb1d5c10c4973b551cb1d7af68ed"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git#018b332f7ad1cb1d5c10c4973b551cb1d7af68ed"
 dependencies = [
  "alloy 0.12.6",
  "alloy-primitives",
