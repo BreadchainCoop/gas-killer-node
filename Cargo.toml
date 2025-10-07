@@ -1,19 +1,18 @@
-[workspace]
 
 [package]
-name = "commonware-avs-node"
+name = "gas-killer-node"
 version = "0.1.0"
 edition = "2024"
+[workspace]
 
 [dependencies]
-commonware-avs-router = { git = "https://github.com/BreadchainCoop/commonware-avs-router", branch = "main" }
 
 alloy = { version = "0.12.6" }
 alloy-network = "0.5.4"
 alloy-primitives = "0.8.25"
+alloy-provider = "0.12.6"
 alloy-signer = "0.12.6"
 alloy-signer-local = "0.12.6"
-alloy-provider = "0.12.6"
 anyhow = "1.0"
 ark-bn254 = "0.5.0"
 ark-ec = "0.5.0"
@@ -24,6 +23,7 @@ bytes = "1.10.1"
 clap = "4.5.37"
 commonware-codec = "0.0.56"
 commonware-cryptography = "0.0.56"
+commonware-eigenlayer = { git = "https://github.com/BreadchainCoop/commonware-avs-network-lookup" }
 commonware-macros = "0.0.56"
 commonware-p2p = "0.0.56"
 commonware-runtime = "0.0.56"
@@ -34,17 +34,17 @@ eigen-crypto-bn254 = "0.5.0"
 eigen-logging = "0.1.3"
 futures = "0.3.31"
 futures-util = "0.3.31"
+gas-killer-router = { git = "https://github.com/BreadchainCoop/gas-killer-router.git" }
 governor = "0.6.3"
 prometheus-client = "0.23.1"
 prost = "0.13.5"
 rand = "0.9.1"
-commonware-eigenlayer = { git = "https://github.com/BreadchainCoop/commonware-avs-network-lookup" }
 serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
 serde_yaml = "0.9.34"
 tracing = "0.1.41"
 tracing-subscriber = "0.3.19"
 url = { version = "2.5.4", features = ["serde"] }
-serde_json = "1.0.140"
 
 [build-dependencies]
 prost-build = "0.13.5"

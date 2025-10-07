@@ -11,10 +11,19 @@ WORKDIR /usr/src/app
 
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs
+
+RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
+    if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
+        TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
+        git config --global url."https://${TOKEN}@github.com/".insteadOf "https://github.com/"; \
+    else \
+        echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN" && exit 1; \
+    fi
+
 RUN cargo build --release && rm -rf src
 
 COPY src ./src
-RUN touch src/main.rs && cargo build --release
+RUN cargo build --release
 
 # Runtime stage
 FROM debian:bookworm-slim
@@ -24,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     libssl3 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/src/app/target/release/commonware-avs-node /usr/local/bin/commonware-avs-node
+COPY --from=builder /usr/src/app/target/release/gas-killer-node /usr/local/bin/gas-killer-node
 COPY orchestrator.json /etc/avs-node/orchestrator.json
 
-ENTRYPOINT ["/usr/local/bin/commonware-avs-node"]
+ENTRYPOINT ["/usr/local/bin/gas-killer-node"]
