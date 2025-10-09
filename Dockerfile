@@ -28,7 +28,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     cargo build --release && \
     cp target/release/gas-killer-node /usr/local/bin/gas-killer-node
-;
+
 # Runtime stage
 FROM debian:bookworm-slim
 
