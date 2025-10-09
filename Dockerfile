@@ -20,7 +20,7 @@ RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
         echo "WARNING: No GIT_AUTH_TOKEN provided; proceeding without authenticated git access"; \
     fi
 
-# Prefetch dependencies to warm cargo cache without producing a stub binary
+# Prefetch dependencies to warm cargo cache
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/src/app/target \
     cargo fetch
