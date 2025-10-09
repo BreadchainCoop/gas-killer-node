@@ -10,20 +10,24 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src/app
 
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
-RUN mkdir src && echo "fn main() {}" > src/main.rs
+COPY src ./src
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
     if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
         TOKEN=$(cat /run/secrets/GIT_AUTH_TOKEN) && \
         git config --global url."https://${TOKEN}@github.com/".insteadOf "https://github.com/"; \
     else \
-        echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN" && exit 1; \
+        echo "WARNING: No GIT_AUTH_TOKEN provided; proceeding without authenticated git access"; \
     fi
 
-RUN cargo build --release && rm -rf src
+# Prefetch dependencies to warm cargo cache
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/usr/src/app/target \
+    cargo fetch
 
-COPY src ./src
-RUN cargo build --release
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    cargo build --release && \
+    cp target/release/gas-killer-node /usr/local/bin/gas-killer-node
 
 # Runtime stage
 FROM debian:bookworm-slim
@@ -33,7 +37,7 @@ RUN apt-get update && apt-get install -y \
     libssl3 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/src/app/target/release/gas-killer-node /usr/local/bin/gas-killer-node
+COPY --from=builder /usr/local/bin/gas-killer-node /usr/local/bin/gas-killer-node
 COPY orchestrator.json /etc/avs-node/orchestrator.json
 
 ENTRYPOINT ["/usr/local/bin/gas-killer-node"]
