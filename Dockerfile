@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src/app
 
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
+COPY src ./src
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
     if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
@@ -24,7 +25,6 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/src/app/target \
     cargo fetch
 
-COPY src ./src
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/src/app/target \
     cargo build --release
