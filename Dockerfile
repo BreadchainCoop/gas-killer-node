@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src/app
 
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
-RUN mkdir src && echo "fn main() {}" > src/main.rs
 
 RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
     if [ -f /run/secrets/GIT_AUTH_TOKEN ]; then \
@@ -20,10 +19,15 @@ RUN --mount=type=secret,id=GIT_AUTH_TOKEN \
         echo "ERROR: Secret file not found at /run/secrets/GIT_AUTH_TOKEN" && exit 1; \
     fi
 
-RUN cargo build --release && rm -rf src
+# Prefetch dependencies to warm cargo cache without producing a stub binary
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/usr/src/app/target \
+    cargo fetch
 
 COPY src ./src
-RUN cargo build --release
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/usr/src/app/target \
+    cargo build --release
 
 # Runtime stage
 FROM debian:bookworm-slim
