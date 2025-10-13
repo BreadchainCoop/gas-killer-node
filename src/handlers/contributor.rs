@@ -11,8 +11,8 @@ use commonware_cryptography::Signer;
 use commonware_p2p::{Receiver, Sender};
 use commonware_utils::hex;
 use dotenv::dotenv;
-use gas_killer_router::usecases::counter::creator::CounterTaskData;
-use gas_killer_router::usecases::counter::validator::CounterValidator;
+use gas_killer_router::usecases::gas_killer::task_data::GasKillerTaskData;
+use gas_killer_router::usecases::gas_killer::validator::GasKillerValidator;
 use gas_killer_router::validator::Validator;
 use gas_killer_router::wire::{self, aggregation::Payload};
 use std::collections::{HashMap, HashSet};
@@ -90,12 +90,12 @@ impl Contribute for Contributor {
         let mut signed = HashSet::new();
         let mut signatures: HashMap<u64, HashMap<usize, Sig>> = HashMap::new();
 
-        let counter_validator = CounterValidator::new().await?;
-        let validator = Validator::new(counter_validator);
+        let gas_killer_validator = GasKillerValidator::new();
+        let validator = Validator::new(gas_killer_validator);
 
         while let Ok((s, message)) = receiver.recv().await {
             // Parse message
-            let Ok(message): Result<wire::Aggregation<CounterTaskData>, _> =
+            let Ok(message): Result<wire::Aggregation<GasKillerTaskData>, _> =
                 wire::Aggregation::read(&mut std::io::Cursor::new(message))
             else {
                 continue;
@@ -229,7 +229,7 @@ impl Contribute for Contributor {
                 .insert(self.me, signature.clone());
 
             // Return signature to orchestrator
-            let message = wire::Aggregation::<CounterTaskData> {
+            let message = wire::Aggregation::<GasKillerTaskData> {
                 round,
                 metadata: message.metadata.clone(),
                 payload: Some(Payload::Signature(signature.to_vec())),
