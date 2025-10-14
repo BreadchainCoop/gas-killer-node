@@ -199,20 +199,27 @@ fn main() {
             )
             .unwrap();
 
-            let orchestrator_addr = orchestrator_config
-                .address
-                .parse::<IpAddr>()
-                .unwrap_or(IpAddr::V4(Ipv4Addr::LOCALHOST));
-
-            let local_addr = SocketAddr::new(
-                orchestrator_addr,
-                orchestrator_config
-                    .port
-                    .parse::<u16>()
-                    .expect("Port not well-formed"),
+            // Resolve orchestrator host:port, supporting Docker DNS names (e.g., "router")
+            let orchestrator_socket = format!(
+                "{}:{}",
+                orchestrator_config.address, orchestrator_config.port
             );
+            let resolved_addr = match orchestrator_socket.to_socket_addrs() {
+                Ok(mut addrs) => addrs.next(),
+                Err(_) => None,
+            }
+            .unwrap_or_else(|| {
+                // Fallback to localhost if resolution fails
+                SocketAddr::new(
+                    IpAddr::V4(Ipv4Addr::LOCALHOST),
+                    orchestrator_config
+                        .port
+                        .parse::<u16>()
+                        .expect("Port not well-formed"),
+                )
+            });
 
-            recipients.push((orchestrator_pub_key.clone(), local_addr));
+            recipients.push((orchestrator_pub_key.clone(), resolved_addr));
         }
 
         // Configure network
