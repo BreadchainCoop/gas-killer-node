@@ -145,7 +145,6 @@ fn main() {
 
     // Configure my identity
     let (signer, port) = configure_identity(&matches);
-    tracing::info!(port, pubkey = ?signer.public_key(), "node identity configured");
     let orchestrator_config = configure_orchestrator(&matches);
     tracing::info!(
         g2_x1 = %orchestrator_config.g2_x1,
