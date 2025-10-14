@@ -145,7 +145,17 @@ fn main() {
 
     // Configure my identity
     let (signer, port) = configure_identity(&matches);
+    tracing::info!(port, pubkey = ?signer.public_key(), "node identity configured");
     let orchestrator_config = configure_orchestrator(&matches);
+    tracing::info!(
+        g2_x1 = %orchestrator_config.g2_x1,
+        g2_x2 = %orchestrator_config.g2_x2,
+        g2_y1 = %orchestrator_config.g2_y1,
+        g2_y2 = %orchestrator_config.g2_y2,
+        address = %orchestrator_config.address,
+        port = %orchestrator_config.port,
+        "loaded orchestrator config"
+    );
     let aggregation: bool = matches.contains_id("aggregation");
 
     // Get operator states
@@ -218,7 +228,7 @@ fn main() {
                         .expect("Port not well-formed"),
                 )
             });
-
+            tracing::info!(target = %orchestrator_socket, resolved = %resolved_addr, "resolved orchestrator address");
             recipients.push((orchestrator_pub_key.clone(), resolved_addr));
         }
 

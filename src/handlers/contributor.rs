@@ -94,13 +94,20 @@ impl Contribute for Contributor {
         let validator = Validator::new(gas_killer_validator);
 
         while let Ok((s, message)) = receiver.recv().await {
+            info!(sender = ?s, bytes = message.len(), "node received message");
             // Parse message
             let Ok(message): Result<wire::Aggregation<GasKillerTaskData>, _> =
                 wire::Aggregation::read(&mut std::io::Cursor::new(message))
             else {
+                info!("failed to decode Aggregation, ignoring");
                 continue;
             };
             let round = message.round;
+            match &message.payload {
+                Some(Payload::Start) => info!(round, "received Start payload from orchestrator"),
+                Some(Payload::Signature(_)) => info!(round, "received signature payload"),
+                None => info!(round, "received empty payload"),
+            }
 
             if let Some(AggregationData {
                 threshold,
