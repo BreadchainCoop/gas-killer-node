@@ -4771,7 +4771,7 @@ dependencies = [
 [[package]]
 name = "gas-analyzer-rs"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-analyzer?branch=feat%2Fdowngrade-alloy#5e85308ed4d998587837bb1be928c781501c7217"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#bdd7b3d05c53b57cd07eb7cd6fee31395119fe52"
 dependencies = [
  "alloy 0.12.6",
  "alloy-eips 0.12.6",
@@ -4841,7 +4841,7 @@ dependencies = [
 [[package]]
 name = "gas-killer-router"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git#7730ea412255480194a7f3a5b51db63269d84e74"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#bdd7b3d05c53b57cd07eb7cd6fee31395119fe52"
 dependencies = [
  "alloy 0.12.6",
  "alloy-primitives",
@@ -7630,11 +7630,11 @@ dependencies = [
 
 [[package]]
 name = "serde_core"
-version = "1.0.222"
+version = "1.0.228"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3f8ebec5eea07db7df9342aa712db2138f019d9ab3454a60a680579a6f841b80"
+checksum = "41d385c7d4ca58e59fc732af25c3983b67ac852c1a25000afe1175de458b67ad"
 dependencies = [
- "serde_derive 1.0.222",
+ "serde_derive 1.0.228",
 ]
 
 [[package]]
@@ -7649,9 +7649,9 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.222"
+version = "1.0.228"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5f61630fe26d0ff555e6c37dc445ab2f15871c8a11ace3cf471b3195d3e4f49"
+checksum = "d540f220d3187173da220f885ab66608367b6574e925011a9353e4badda91d79"
 dependencies = [
  "proc-macro2",
  "quote",
