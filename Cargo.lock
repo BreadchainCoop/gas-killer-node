@@ -3068,7 +3068,7 @@ dependencies = [
  "hex",
  "ripemd",
  "serde",
- "serde_derive 1.0.228",
+ "serde_derive 1.0.219",
  "sha2 0.10.9",
  "sha3",
  "thiserror 1.0.69",
@@ -3086,7 +3086,7 @@ version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fde0e0ec90c9dfb3b4b1a0891a7dcd0e2bffde2f7efed5fe7c9bb00e5bfb915e"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -3387,7 +3387,7 @@ dependencies = [
  "rayon",
  "regex",
  "serde",
- "serde_derive 1.0.228",
+ "serde_derive 1.0.219",
  "serde_json",
  "tinytemplate",
  "walkdir",
@@ -4771,7 +4771,7 @@ dependencies = [
 [[package]]
 name = "gas-analyzer-rs"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#d1b7c4484fb823724190dbc23d497b1a39bd1c7b"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#bdd7b3d05c53b57cd07eb7cd6fee31395119fe52"
 dependencies = [
  "alloy 0.12.6",
  "alloy-eips 0.12.6",
@@ -4786,7 +4786,7 @@ dependencies = [
  "dotenv",
  "env",
  "serde",
- "serde_derive 1.0.228",
+ "serde_derive 1.0.219",
  "serde_json",
  "tokio",
  "url",
@@ -4841,7 +4841,7 @@ dependencies = [
 [[package]]
 name = "gas-killer-router"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#d1b7c4484fb823724190dbc23d497b1a39bd1c7b"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#bdd7b3d05c53b57cd07eb7cd6fee31395119fe52"
 dependencies = [
  "alloy 0.12.6",
  "alloy-primitives",
@@ -5298,7 +5298,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2 0.6.0",
+ "socket2 0.5.10",
  "system-configuration 0.6.1",
  "tokio",
  "tower-service",
@@ -6739,7 +6739,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be769465445e8c1474e9c5dac2018218498557af32d9ed057325ec9a41ae81bf"
 dependencies = [
  "heck",
- "itertools 0.14.0",
+ "itertools 0.11.0",
  "log",
  "multimap",
  "once_cell",
@@ -6759,7 +6759,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a56d757972c98b346a9b766e3f02746cde6dd1cd1d1d563472929fdd74bec4d"
 dependencies = [
  "anyhow",
- "itertools 0.14.0",
+ "itertools 0.11.0",
  "proc-macro2",
  "quote",
  "syn 2.0.106",
@@ -6808,7 +6808,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash",
  "rustls 0.23.31",
- "socket2 0.6.0",
+ "socket2 0.5.10",
  "thiserror 2.0.16",
  "tokio",
  "tracing",
@@ -6845,7 +6845,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.6.0",
+ "socket2 0.5.10",
  "tracing",
  "windows-sys 0.60.2",
 ]
@@ -7715,7 +7715,7 @@ dependencies = [
  "schemars 0.9.0",
  "schemars 1.0.4",
  "serde",
- "serde_derive 1.0.228",
+ "serde_derive 1.0.219",
  "serde_json",
  "serde_with_macros",
  "time",
@@ -9130,7 +9130,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
