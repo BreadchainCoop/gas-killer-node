@@ -4771,7 +4771,7 @@ dependencies = [
 [[package]]
 name = "gas-analyzer-rs"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#bdd7b3d05c53b57cd07eb7cd6fee31395119fe52"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#d1b7c4484fb823724190dbc23d497b1a39bd1c7b"
 dependencies = [
  "alloy 0.12.6",
  "alloy-eips 0.12.6",
@@ -4841,7 +4841,7 @@ dependencies = [
 [[package]]
 name = "gas-killer-router"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#bdd7b3d05c53b57cd07eb7cd6fee31395119fe52"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#d1b7c4484fb823724190dbc23d497b1a39bd1c7b"
 dependencies = [
  "alloy 0.12.6",
  "alloy-primitives",
