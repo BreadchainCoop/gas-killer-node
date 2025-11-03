@@ -4771,7 +4771,7 @@ dependencies = [
 [[package]]
 name = "gas-analyzer-rs"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#89c7ef6dbf8e99300dc1305abc23f25b8fef2644"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=query-bls-from-task-manager#cca1f573a00a31ee2dc438a4333848366dad2a2a"
 dependencies = [
  "alloy 0.12.6",
  "alloy-eips 0.12.6",
@@ -4786,7 +4786,7 @@ dependencies = [
  "dotenv",
  "env",
  "serde",
- "serde_derive 1.0.228",
+ "serde_derive 1.0.219",
  "serde_json",
  "tokio",
  "url",
@@ -4841,7 +4841,7 @@ dependencies = [
 [[package]]
 name = "gas-killer-router"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=feat%2Farray-summation-integration-test#89c7ef6dbf8e99300dc1305abc23f25b8fef2644"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=query-bls-from-task-manager#cca1f573a00a31ee2dc438a4333848366dad2a2a"
 dependencies = [
  "alloy 0.12.6",
  "alloy-primitives",
