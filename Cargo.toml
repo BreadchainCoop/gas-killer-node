@@ -39,7 +39,7 @@ governor = "0.6.3"
 prometheus-client = "0.23.1"
 prost = "0.13.5"
 rand = "0.9.1"
-serde = { version = "1.0.219", features = ["derive"] }
+serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.140"
 serde_yaml = "0.9.34"
 tracing = "0.1.41"
@@ -54,5 +54,5 @@ tokio = { version = "1.0", features = ["full", "test-util"] }
 
 [patch.crates-io]
 deranged = { git = "https://github.com/jhpratt/deranged", rev = "3c95431a375bca409a4731ae8749acc84e076267" }
-serde = { git = "https://github.com/serde-rs/serde", rev = "v1.0.219" }
-serde_derive = { git = "https://github.com/serde-rs/serde", rev = "v1.0.219" }
+serde = { git = "https://github.com/serde-rs/serde", rev = "v1.0.228" }
+serde_derive = { git = "https://github.com/serde-rs/serde", rev = "v1.0.228" }
