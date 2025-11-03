@@ -4745,7 +4745,7 @@ dependencies = [
 [[package]]
 name = "gas-analyzer-rs"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=query-bls-from-task-manager#cca1f573a00a31ee2dc438a4333848366dad2a2a"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=query-bls-from-task-manager-bagel#e749e99dc7ad84fb9a82cf83082df121fe8726e8"
 dependencies = [
  "alloy 0.12.6",
  "alloy-eips 0.12.6",
@@ -4815,7 +4815,7 @@ dependencies = [
 [[package]]
 name = "gas-killer-router"
 version = "0.1.0"
-source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=query-bls-from-task-manager#cca1f573a00a31ee2dc438a4333848366dad2a2a"
+source = "git+https://github.com/BreadchainCoop/gas-killer-router.git?branch=query-bls-from-task-manager-bagel#e749e99dc7ad84fb9a82cf83082df121fe8726e8"
 dependencies = [
  "alloy 0.12.6",
  "alloy-primitives",
