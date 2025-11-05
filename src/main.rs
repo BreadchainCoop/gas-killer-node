@@ -146,6 +146,15 @@ fn main() {
     // Configure my identity
     let (signer, port) = configure_identity(&matches);
     let orchestrator_config = configure_orchestrator(&matches);
+    tracing::info!(
+        g2_x1 = %orchestrator_config.g2_x1,
+        g2_x2 = %orchestrator_config.g2_x2,
+        g2_y1 = %orchestrator_config.g2_y1,
+        g2_y2 = %orchestrator_config.g2_y2,
+        address = %orchestrator_config.address,
+        port = %orchestrator_config.port,
+        "loaded orchestrator config"
+    );
     let aggregation: bool = matches.contains_id("aggregation");
 
     // Get operator states
@@ -199,20 +208,27 @@ fn main() {
             )
             .unwrap();
 
-            let orchestrator_addr = orchestrator_config
-                .address
-                .parse::<IpAddr>()
-                .unwrap_or(IpAddr::V4(Ipv4Addr::LOCALHOST));
-
-            let local_addr = SocketAddr::new(
-                orchestrator_addr,
-                orchestrator_config
-                    .port
-                    .parse::<u16>()
-                    .expect("Port not well-formed"),
+            // Resolve orchestrator host:port, supporting Docker DNS names (e.g., "router")
+            let orchestrator_socket = format!(
+                "{}:{}",
+                orchestrator_config.address, orchestrator_config.port
             );
-
-            recipients.push((orchestrator_pub_key.clone(), local_addr));
+            let resolved_addr = match orchestrator_socket.to_socket_addrs() {
+                Ok(mut addrs) => addrs.next(),
+                Err(_) => None,
+            }
+            .unwrap_or_else(|| {
+                // Fallback to localhost if resolution fails
+                SocketAddr::new(
+                    IpAddr::V4(Ipv4Addr::LOCALHOST),
+                    orchestrator_config
+                        .port
+                        .parse::<u16>()
+                        .expect("Port not well-formed"),
+                )
+            });
+            tracing::info!(target = %orchestrator_socket, resolved = %resolved_addr, "resolved orchestrator address");
+            recipients.push((orchestrator_pub_key.clone(), resolved_addr));
         }
 
         // Configure network
